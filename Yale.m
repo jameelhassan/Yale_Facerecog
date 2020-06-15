@@ -12,7 +12,7 @@ Y = all_combos(out,:);
 Y = Y';
 X = indata';
 
-net = feedforwardnet([10,5]);
+net = feedforwardnet([50 30]);
 
 %% Neural Net with output vals ranging 1-15
 % net = configure(net,X,out');
@@ -25,4 +25,6 @@ net = feedforwardnet([10,5]);
 %% Neural Net with output as a 1x15 sparse vector
 net = configure(net,X,Y);
 net.layers{3}.transferFcn = 'logsig';
+net.performFcn = 'crossentropy'
+net.trainFcn = 'trainscg'
 view(net)
