@@ -1,0 +1,13 @@
+clear all; close all;
+clc;
+
+data = load("Yale_32x32.mat", 'fea', 'gnd');
+X = data.fea;
+out = data.gnd;
+num_faces = max(out);
+
+all_combos = eye(num_faces);
+Y = all_combos(out,:);
+
+net = feedforwardnet(10,5);
+ne
