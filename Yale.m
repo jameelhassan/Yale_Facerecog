@@ -12,7 +12,7 @@ Y = all_combos(out,:);
 Y = Y';
 X = indata';
 
-net = feedforwardnet([50 30]);
+net = feedforwardnet([60 20]);
 
 %% Neural Net with output vals ranging 1-15
 % net = configure(net,X,out');
@@ -24,7 +24,16 @@ net = feedforwardnet([50 30]);
 
 %% Neural Net with output as a 1x15 sparse vector
 net = configure(net,X,Y);
-net.layers{3}.transferFcn = 'logsig';
+net.layers{3}.transferFcn = 'softmax';
 net.performFcn = 'crossentropy'
 net.trainFcn = 'trainscg'
 view(net)
+
+%Evaluate trained parameters
+load('NN_sparsevec.mat');
+load('trainstruct.mat');
+
+testX = X(:,tr.testInd);
+testY = Y(:,tr.testInd);
+testeval = nn(testX);
+plotconfusion(testY,testeval)
